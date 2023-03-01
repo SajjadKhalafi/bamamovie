@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use function PHPUnit\Framework\isFalse;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -28,8 +29,12 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        if($request->user()->hasRole('user')){
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }else{
+            return redirect()->route('admin.index');
+        }
 
-        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**
