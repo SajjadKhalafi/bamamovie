@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,10 +28,12 @@ Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function
     })->name('index');
 });
 
+Route::resource('movies' , Controllers\MovieController::class)->only(['index' , 'show']);
+
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';
