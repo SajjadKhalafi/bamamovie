@@ -30,6 +30,8 @@ Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function
 
 Route::resource('movies' , Controllers\MovieController::class)->only(['index' , 'show']);
 
+Route::get('/genre/{id}/movies' , [Controllers\GenreController::class , 'index'])->name('genres.index');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [Controllers\ProfileController::class, 'update'])->name('profile.update');

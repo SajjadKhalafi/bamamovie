@@ -3,19 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Genre;
+use App\Http\Requests\StoreGenreRequest;
+use App\Http\Requests\UpdateGenreRequest;
 use App\Models\Movie;
-use App\Http\Requests\StoreMovieRequest;
-use App\Http\Requests\UpdateMovieRequest;
 
-class MovieController extends Controller
+class GenreController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        $movies = Movie::latest()->get();
-        return view('movies.index' , compact('movies'));
+        $genre = Genre::where('id' , $id)->first();
+        return view('movies.index' , [
+            'movies' => $genre->movies->all()
+        ]);
     }
 
     /**
@@ -29,7 +31,7 @@ class MovieController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMovieRequest $request)
+    public function store(StoreGenreRequest $request)
     {
         //
     }
@@ -37,17 +39,15 @@ class MovieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Movie $movie)
+    public function show(Genre $genre)
     {
-        return view('movies.show' , [
-            'movie' => $movie,
-        ]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Movie $movie)
+    public function edit(Genre $genre)
     {
         //
     }
@@ -55,7 +55,7 @@ class MovieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMovieRequest $request, Movie $movie)
+    public function update(UpdateGenreRequest $request, Genre $genre)
     {
         //
     }
@@ -63,7 +63,7 @@ class MovieController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Movie $movie)
+    public function destroy(Genre $genre)
     {
         //
     }

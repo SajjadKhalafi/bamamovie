@@ -10,8 +10,13 @@ class Movie extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public function genres(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Genre::class);
     }
 }

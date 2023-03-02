@@ -14,11 +14,17 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-         \App\Models\Movie::factory(20)->create();
+        \App\Models\Movie::factory( 20)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\Genre::factory( 5)->create();
+
+        $genres = \App\Models\Genre::all();
+
+        \App\Models\Movie::all()->each(function ($movie) use ($genres) {
+            $movie->genres()->attach(
+                $genres->random(rand(1, 3))->pluck('id')->toArray()
+            );
+        });
+
     }
 }

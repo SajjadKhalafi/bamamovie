@@ -25,7 +25,9 @@
                     <span>{{ \Carbon\Carbon::parse($movie['release_date'])->format('M d, Y') }}</span>
                     <span class="mx-1">|</span>
                     <span class="mx-1">
-                           Comedy , Drama
+                           @foreach($movie->genres as $genre)
+                            <a href="{{ route('genres.index' , $genre['id']) }}">{{ $genre['name']}}</a>{{ $loop->last ? '' : ',' }}
+                           @endforeach
                     </span>
                     <span class="mx-1">|</span>
                     <span class="mx-1">
